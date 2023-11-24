@@ -29,7 +29,7 @@ class ImageSubscriber(Node):
         self.sub = self.create_subscription(
             Image, 'rare', self.listener_callback, 10)     # 创建订阅者对象（消息类型、话题名、订阅者回调函数、队列长度）
         self.cv_bridge = CvBridge()                             # 创建一个图像转换对象，用于OpenCV图像与ROS的图像消息的互相转换
-        self.publisher = self.create_publisher(Int16, 'foobar', 10)
+        self.publisher = self.create_publisher(Int16, 'ball_tracking', 10)
 
     def object_detect(self, image):
         blurred = cv2.GaussianBlur(image, (11, 11), 0)
