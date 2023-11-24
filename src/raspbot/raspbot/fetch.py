@@ -9,7 +9,7 @@
 import rclpy                            # ROS2 Python接口库
 from rclpy.node import Node             # ROS2 节点类
 from sensor_msgs.msg import Image       # 图像消息类型
-from std_msgs.msg import Int16
+from std_msgs.msg import Int16MultiArray
 from cv_bridge import CvBridge          # ROS与OpenCV图像转换类
 import cv2                              # Opencv图像处理库
 import numpy as np                      # Python数值计算库
@@ -29,7 +29,7 @@ class ImageSubscriber(Node):
         self.sub = self.create_subscription(
             Image, 'rare', self.listener_callback, 10)     # 创建订阅者对象（消息类型、话题名、订阅者回调函数、队列长度）
         self.cv_bridge = CvBridge()                             # 创建一个图像转换对象，用于OpenCV图像与ROS的图像消息的互相转换
-        self.publisher = self.create_publisher(Int16, 'ball_tracking', 10)
+        self.publisher = self.create_publisher(Int16MultiArray, 'ball_tracking', 10)
 
     def object_detect(self, image):
         blurred = cv2.GaussianBlur(image, (11, 11), 0)
@@ -44,8 +44,8 @@ class ImageSubscriber(Node):
         cnts = imutils.grab_contours(cnts)
         center = None
 
-        msg = Int16()
-        msg.data = -1
+        msg = Int16MultiArray()
+        msg.data = [-1,-1,-1]
 
         if len(cnts) > 0:
             c = max(cnts, key=cv2.contourArea)
@@ -59,7 +59,7 @@ class ImageSubscriber(Node):
                 cv2.circle(image, (int(x), int(y)), int(radius),
                     (0, 255, 255), 2)
                 cv2.circle(image, center, 5, (0, 0, 255), -1)
-                msg.data = int(x)
+                msg.data = [int(x), int(y), int(radius)]
         self.publisher.publish(msg)
         cv2.imshow("Image", image)
         key = cv2.waitKey(1) & 0xFF

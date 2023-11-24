@@ -21,7 +21,8 @@ setup(
     entry_points={
         'console_scripts': [
             'fetch = raspbot.fetch:main',
-            'pub = raspbot.webpub:main'
+            'pub = raspbot.webpub:main',
+            'follow = raspbot.follow:main'
         ],
     },
 )
