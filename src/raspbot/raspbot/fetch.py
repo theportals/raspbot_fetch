@@ -17,8 +17,10 @@ import imutils
 
 lower_red = np.array([0, 90, 128])      # 红色的HSV阈值下限
 upper_red = np.array([180, 255, 255])   # 红色的HSV阈值上限
-orangeLower = (20, 40, 40)
-orangeUpper = (70, 255, 255)
+#orangeLower = (20, 40, 40)
+#orangeUpper = (70, 255, 255)
+orangeLower = (30, 80, 80)
+orangeUpper = (40, 255, 255)
 
 """
 创建一个订阅者节点
@@ -62,6 +64,7 @@ class ImageSubscriber(Node):
                 msg.data = [int(x), int(y), int(radius)]
         self.publisher.publish(msg)
         cv2.imshow("Image", image)
+        cv2.imshow("Mask", mask)
         key = cv2.waitKey(1) & 0xFF
 
 
