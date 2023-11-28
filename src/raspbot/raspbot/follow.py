@@ -116,7 +116,7 @@ class FollowNode(Node):
             self.car.control_car(int(move_speed_6ft * left_scale), move_speed_6ft)
             time.sleep(move_time)
             self.car.control_car(0, 0)
-        self.circle_around()
+        self.circle_and_charge()
 
     def fix_heading(self):
         # Point car roughly towards ball
@@ -129,15 +129,24 @@ class FollowNode(Node):
         self.car.control_car(0, 0)
         self.move_cam(2, 0)
 
-    def circle_around(self):
-        # Car will perform semi-circle routine to get on the other side of the tennis ball
-        pass
+    def circle_and_charge(self):
+        # Car will perform semi-circle routine to get on the other side of the tennis ball, then hit it back towards origin
+        # Found with skid-steer formula and good old-fashioned trial-and-error
+        self.car.control_car(97, -97)
+        time.sleep(0.6)
+        self.car.control_car(50, 180)
+        time.sleep(1.5)
+        self.car.control_car(-97, 97)
+        time.sleep(0.45)
+        self.car.control_car(255, 255)
+        time.sleep(0.25)
+        self.car.control_car(0, 0)
 
 
 def main(args=None):
+    rclpy.init(args=args)
+    node = FollowNode()
     try:
-        rclpy.init(args=args)
-        node = FollowNode()
         rclpy.spin(node)
         node.destroy_node()
         rclpy.shutdown()
