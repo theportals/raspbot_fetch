@@ -8,12 +8,9 @@ from cv_bridge import CvBridge
 import cv2
 import imutils
 
-greenLower = (60, 60, 60)
-greenUpper = (90, 255, 255)
+greenLower = (115, 40, 40)
+greenUpper = (145, 255, 255)
 
-"""
-创建一个订阅者节点
-"""
 class ImageSubscriber(Node):
     def __init__(self, name):
         super().__init__(name)
