@@ -20,8 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'fetch = raspbot.fetch:main',
-            'pub = raspbot.webpub:main',
+            'ball_detection = raspbot.ball_detection:main',
             'follow = raspbot.follow:main'
         ],
     },
