@@ -39,7 +39,4 @@ Each command should be run in a separate terminal window.
    * The raspbot will now begin tracking the ball, but will NOT begin moving.
 
 5. Enable following:
-   * Press space in the window showing the raspbot video output to allow the raspbot to follow the ball, and "fetch" it.l
-
-## Demonstration
-A video recording of the raspbot in action can be found [here](https://youtu.be/WSJWOUEJBv4).
+   * Press space in the window showing the raspbot video output to allow the raspbot to follow the ball, and "fetch" it.
